@@ -7,7 +7,6 @@ int main(void)
 {
 	// func(100);
 	// func1(200);
-	printf("helloworld\n");
-
+	printf("12345\n");
 	return 0;
 }

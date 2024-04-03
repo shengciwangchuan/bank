@@ -26,8 +26,10 @@
 
 ##生成文件名为testFunc_static的静态库
 #add_library (testFunc_static STATIC ${SRC_LIST})
+
 # 设置目标二进制可执行文件的存放位置为bin/
 #set (EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
 # 设置库文件的默认输出路径为lib
 #set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 # 设置最终的库文件名字
