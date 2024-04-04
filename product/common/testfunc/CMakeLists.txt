@@ -1,6 +1,11 @@
 cmake_minimum_required (VERSION 2.8)
+
+# #该命令是用来向工程添加多个指定头文件的搜索路径
+include_directories (inc)
+file(copy inc/ DESTINATION ${PROJECT_SOURCE_DIR}/lib/common/inc FOLLOW_SYMLINK_CHAIN)
+
 aux_source_directory (src SRC_LIST)
-#set (SRC_LIST ${PROJECT_SOURCE_DIR}/common/testFunc/testFunc.c)
+
 ##生成文件名为testFunc的静态库
 add_library (testFunc_static STATIC ${SRC_LIST})
 
