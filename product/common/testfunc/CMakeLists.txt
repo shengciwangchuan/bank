@@ -2,8 +2,8 @@ cmake_minimum_required (VERSION 2.8)
 
 # #该命令是用来向工程添加多个指定头文件的搜索路径
 include_directories (inc)
-
-execute_process(COMMAND cp -R ${CMAKE_CURRENT_SOURCE_DIR}/inc ${PROJECT_SOURCE_DIR}/lib/common)
+file(GLOB INC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h)
+execute_process(COMMAND  cp -R ${INC_LIST}  ${PROJECT_SOURCE_DIR}/include)
 
 aux_source_directory (src SRC_LIST)
 message("SRC_LIST: ${SRC_LIST}")
