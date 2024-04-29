@@ -1,10 +1,26 @@
+
+
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-#include <arpa/inet.h>
+#include <sys/types.h>
 #include <sys/socket.h>
-
+#include <sys/ioctl.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <errno.h>
+#include <time.h>
+#include <fcntl.h>
+#include <stdbool.h>
+#include <pthread.h>
+#define rtsp_setsocknonblock(s) \
+{	\
+	int __opts; \
+	__opts = fcntl((int)s, F_GETFL); \
+	__opts = (__opts | O_NONBLOCK); \
+	fcntl((int)s, F_SETFL, __opts); \
+}
 void error_handling(char *message);
 
 int main(int argc, char *argv[])
@@ -33,13 +49,18 @@ int main(int argc, char *argv[])
 
 	if(listen(serv_sock,5)==-1)
 		error_handling("listen()error");
+
+	rtsp_setsocknonblock(serv_sock);
+
 	char message[32]={0};
 	while(1) {
 		clnt_addr_size=sizeof(clnt_addr);
 		memset(&clnt_addr,0,sizeof(clnt_addr));
+		usleep(1000*200);
 		clnt_sock=accept(serv_sock,(struct sockaddr*)&clnt_addr,&clnt_addr_size);
-		if(clnt_sock==-1)
-			error_handling("accept()error");
+		if(clnt_sock <0){
+			continue;
+		}
 		printf("clnt_sock:%d\n",clnt_sock);
 
 		memset(message,0,32);
