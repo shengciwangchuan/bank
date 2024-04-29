@@ -41,6 +41,8 @@
 *.su
 *.idb
 *.pdb
+# app target file
+bin/app
 
 # Kernel Module Compile Results
 *.mod*
